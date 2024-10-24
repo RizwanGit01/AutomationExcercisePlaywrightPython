@@ -10,14 +10,14 @@ pipeline {
 
         stage('Setup') {
             steps {
-                sh 'pip install playwright'
-                sh 'playwright install'
+                bat 'pip install playwright'
+                bat 'playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'python -m pytest tests/'
+                bat 'python -m pytest tests/'
             }
         }
     }
