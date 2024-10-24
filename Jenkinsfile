@@ -22,7 +22,8 @@ pipeline {
 
         stage('Setup') {
             steps {
-                bat '%PYTHON_PATH% -m pip install playwright'
+                bat '%PYTHON_PATH% -m pip install --upgrade pip'
+                bat '%PYTHON_PATH% -m pip install -r requirements.txt'
                 bat '%PYTHON_PATH% -m playwright install'
             }
         }
