@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PYTHON_PATH = 'C:\\Users\\shaik\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,58 +15,27 @@ pipeline {
         stage('Environment Info') {
             steps {
                 bat 'echo %PATH%'
-                bat 'where python || echo Python not found in PATH'
-                bat 'dir "C:\\Program Files\\Python*" || echo No Python installation found in Program Files'
-                bat 'dir "C:\\Python*" || echo No Python installation found in C:\\'
+                bat '"${PYTHON_PATH}" --version || echo Python version command failed'
             }
         }
 
         stage('Setup') {
             steps {
-                script {
-                    def pythonPaths = [
-                        'C:\\Python311\\python.exe',
-                        'C:\\Python310\\python.exe',
-                        'C:\\Python39\\python.exe',
-                        'C:\\Python38\\python.exe',
-                        'C:\\Program Files\\Python311\\python.exe',
-                        'C:\\Program Files\\Python310\\python.exe',
-                        'C:\\Program Files\\Python39\\python.exe',
-                        'C:\\Program Files\\Python38\\python.exe'
-                    ]
-                    
-                    def pythonExe = ''
-                    for (path in pythonPaths) {
-                        if (fileExists(path)) {
-                            pythonExe = path
-                            break
-                        }
-                    }
-                    
-                    if (pythonExe) {
-                        bat "\"${pythonExe}\" -m pip install playwright"
-                        bat "\"${pythonExe}\" -m playwright install"
-                    } else {
-                        error "Python not found. Please install Python or add it to PATH."
-                    }
-                }
+                bat '"${PYTHON_PATH}" -m pip install playwright'
+                bat '"${PYTHON_PATH}" -m playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                script {
-                    if (pythonExe) {
-                        bat "\"${pythonExe}\" -m pytest tests/ --junitxml=test-results/results.xml"
-                    }
-                }
+                bat '"${PYTHON_PATH}" -m pytest tests/ --junitxml=test-results/results.xml'
             }
         }
     }
 
     post {
         always {
-            junit 'test-results/results.xml'
+            junit allowEmptyResults: true, testResults: 'test-results/results.xml'
         }
     }
 }
