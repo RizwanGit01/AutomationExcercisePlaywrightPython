@@ -15,20 +15,21 @@ pipeline {
         stage('Environment Info') {
             steps {
                 bat 'echo %PATH%'
-                bat '"${PYTHON_PATH}" --version || echo Python version command failed'
+                bat 'echo %PYTHON_PATH%'
+                bat '%PYTHON_PATH% --version || echo Python version command failed'
             }
         }
 
         stage('Setup') {
             steps {
-                bat '"${PYTHON_PATH}" -m pip install playwright'
-                bat '"${PYTHON_PATH}" -m playwright install'
+                bat '%PYTHON_PATH% -m pip install playwright'
+                bat '%PYTHON_PATH% -m playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat '"${PYTHON_PATH}" -m pytest tests/ --junitxml=test-results/results.xml'
+                bat '%PYTHON_PATH% -m pytest tests/ --junitxml=test-results/results.xml'
             }
         }
     }
