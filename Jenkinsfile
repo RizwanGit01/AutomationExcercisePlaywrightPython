@@ -8,23 +8,29 @@ pipeline {
             }
         }
 
+        stage('Find Python') {
+            steps {
+                bat 'where python'
+            }
+        }
+
         stage('Setup') {
             steps {
-                bat 'C:\\Path\\To\\Python\\python.exe -m pip install playwright'
-                bat 'C:\\Path\\To\\Python\\python.exe -m playwright install'
+                bat 'python -m pip install playwright'
+                bat 'python -m playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'C:\\Path\\To\\Python\\python.exe -m pytest tests/'
+                bat 'python -m pytest tests/ --junitxml=test-results/results.xml'
             }
         }
     }
 
     post {
         always {
-            junit 'test-results/**/*.xml'
+            junit 'test-results/results.xml'
         }
     }
 }
