@@ -30,7 +30,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat '%PYTHON_PATH% -m pytest tests/ --junitxml=test-results/results.xml'
+                bat '%PYTHON_PATH% -m pytest tests/ --junitxml=test-results/results.xml -p pytest_asyncio'
             }
         }
     }

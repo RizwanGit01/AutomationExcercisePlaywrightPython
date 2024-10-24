@@ -5,7 +5,7 @@ import pytest
 @pytest.mark.asyncio
 async def test_register_user():
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch()
         page = await browser.new_page()
         login_page = LoginPage(page)
         await login_page.homepage()
@@ -36,4 +36,3 @@ async def test_register_user():
         await login_page.verify_account_deleted()
         
         await browser.close()
-
