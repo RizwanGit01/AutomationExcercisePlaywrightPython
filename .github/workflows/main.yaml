@@ -32,7 +32,10 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
     - name: Count tests
-      run: echo "TEST_COUNT=$(pytest tests/ --collect-only -q | wc -l)" >> $GITHUB_ENV
+      run: |
+        TEST_COUNT=$(pytest tests/ --collect-only -q | wc -l)
+        echo "TEST_COUNT=$TEST_COUNT" >> $GITHUB_ENV
+        echo "{\"schemaVersion\": 1, \"label\": \"tests\", \"message\": \"$TEST_COUNT\", \"color\": \"green\"}" > test-count.json
     - name: Create custom badge
       uses: schneegans/dynamic-badges-action@v1.6.0
       with:
@@ -41,4 +44,4 @@ jobs:
         filename: test-count.json
         label: tests
         message: ${{ env.TEST_COUNT }}
-        color: green  
+        color: green
