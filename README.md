@@ -2,4 +2,4 @@
 
 [![codecov](https://codecov.io/gh/RizwanGit01/AutomationExcercisePlaywrightPython/branch/main/graph/badge.svg)](https://codecov.io/gh/RizwanGit01/AutomationExcercisePlaywrightPython)
 
-![Test Count](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/RizwanGit01/4242424242424242/raw/test-count.json)
+![Test Count](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/RizwanGit01/d805d5fbdf53940d8e82e9891f249ca2/raw/test-count.json)
