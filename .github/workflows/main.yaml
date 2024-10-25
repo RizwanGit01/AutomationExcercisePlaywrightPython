@@ -36,9 +36,9 @@ jobs:
     - name: Create custom badge
       uses: schneegans/dynamic-badges-action@v1.6.0
       with:
-          auth: ${{ secrets.GIST_SECRET }}
-          gistID: d805d5fbdf53940d8e82e9891f249ca2
-          filename: test-count.json
-          label: tests
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: d805d5fbdf53940d8e82e9891f249ca2
+        filename: test-count.json
+        label: tests
         message: ${{ env.TEST_COUNT }}
         color: green  
