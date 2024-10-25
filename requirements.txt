@@ -2,3 +2,4 @@ playwright
 pytest
 pytest-playwright
 pytest-asyncio
+pytest-cov
