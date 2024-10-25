@@ -26,3 +26,23 @@ jobs:
       with:
         name: test-results
         path: test-results/results.xml
+    - name: Run tests with coverage
+      run: pytest tests/ --cov=./ --cov-report=xml --junitxml=test-results/results.xml -p pytest_asyncio
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+    - name: Deploy report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./test-results
+    - name: Count tests
+      run: echo "TEST_COUNT=$(pytest tests/ --collect-only -q | wc -l)" >> $GITHUB_ENV
+    - name: Create custom badge
+      uses: schneegans/dynamic-badges-action@v1.6.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: <your-gist-id>
+        filename: test-count.json
+        label: tests
+        message: ${{ env.TEST_COUNT }}
+        color: green
