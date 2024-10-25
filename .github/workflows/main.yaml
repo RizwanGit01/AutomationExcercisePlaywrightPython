@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: '3.12'
     - name: Install dependencies
@@ -18,6 +18,8 @@ jobs:
     - name: Install Playwright browsers
       run: playwright install
     - name: Run tests
+      env:
+        PYTHONPATH: ${{ github.workspace }}
       run: pytest tests/ --junitxml=test-results/results.xml -p pytest_asyncio
     - name: Upload test results
       uses: actions/upload-artifact@v3
