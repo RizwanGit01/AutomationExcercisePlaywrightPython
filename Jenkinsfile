@@ -38,7 +38,6 @@ pipeline {
     post {
         always {
             junit allowEmptyResults: true, testResults: 'test-results/results.xml'
-            archiveArtifacts artifacts: 'test-results/results.xml', fingerprint: true
         }
     }
 }
