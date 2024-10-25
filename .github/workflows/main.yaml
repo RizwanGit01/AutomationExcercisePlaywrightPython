@@ -42,24 +42,3 @@ jobs:
       with:
         name: test-results
         path: test-results/results.xml
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-
-    - name: Count tests
-      run: |
-        TEST_COUNT=$(pytest tests/ --collect-only -q | wc -l)
-        echo "TEST_COUNT=$TEST_COUNT" >> $GITHUB_ENV
-        echo "{\"schemaVersion\": 1, \"label\": \"tests\", \"message\": \"$TEST_COUNT\", \"color\": \"green\"}" > test-count.json
-
-    - name: Create custom badge
-      uses: schneegans/dynamic-badges-action@v1.6.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: d805d5fbdf53940d8e82e9891f249ca2
-        filename: test-count.json
-        label: tests
-        message: ${{ env.TEST_COUNT }}
-        color: green
