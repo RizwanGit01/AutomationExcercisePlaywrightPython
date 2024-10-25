@@ -1,0 +1,1 @@
+[![Playwright Tests](https://github.com/RizwanGit01/AutomationExcercisePlaywrightPython/actions/workflows/main.yaml/badge.svg)](https://github.com/RizwanGit01/AutomationExcercisePlaywrightPython/actions/workflows/main.yaml)
